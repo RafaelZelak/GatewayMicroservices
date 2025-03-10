@@ -1,3 +1,5 @@
+# NÃO MEXER NESTE ARQUIVO!
+
 from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES, SUBTREE
 from decouple import config
 
@@ -9,13 +11,11 @@ class AuthService:
             server = Server(domain, get_info=ALL_ATTRIBUTES)
             user_dn = f'{username}@{domain}'
 
-            # Tenta autenticar com as credenciais do próprio usuário
             conn = Connection(server, user=user_dn, password=password)
             if not conn.bind():
                 print("Falha na autenticação do usuário.")
                 return None
 
-            # Usa a conexão autenticada para buscar os atributos do usuário
             search_base = f"DC={domain.replace('.', ',DC=')}"
             search_filter = f"(sAMAccountName={username})"
             conn.search(

@@ -1,3 +1,5 @@
+# NÃO MEXER NESTE ARQUIVO!
+
 from flask import session, redirect, url_for, request, render_template
 from config_flask import create_app
 
@@ -13,5 +15,5 @@ if __name__ == '__main__':
 
 @app.route('/logout')
 def logout():
-    session.clear()  # ou session.pop("logged_in", None)
+    session.clear()
     return redirect(url_for("index"))

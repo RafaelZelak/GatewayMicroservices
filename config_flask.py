@@ -36,4 +36,5 @@ def create_app():
     app.register_blueprint(webhook_bp, url_prefix='/api')
 
     #Registrar rotas novas a partir daqui:
+
     return app
