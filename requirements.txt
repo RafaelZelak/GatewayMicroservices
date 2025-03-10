@@ -1,0 +1,7 @@
+Flask
+bitrixUtils
+gunicorn
+dotenv
+PyYAML
+ldap3
+python-decouple

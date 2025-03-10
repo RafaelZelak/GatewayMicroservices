@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - {{ service }}</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="w-full max-w-md">
+    <div class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Login para {{ service }}</h1>
+      {% if error %}
+        <p class="text-red-500 text-center mb-4">{{ error }}</p>
+      {% endif %}
+      <form method="post" action="{{ request.path }}{% if request.args.get('next') %}?next={{ request.args.get('next') }}{% endif %}">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-semibold mb-2" for="username">Usuário</label>
+          <input class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                 type="text" name="username" id="username" placeholder="Digite seu usuário">
+        </div>
+        <div class="mb-6">
+          <label class="block text-gray-700 text-sm font-semibold mb-2" for="password">Senha</label>
+          <input class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                 type="password" name="password" id="password" placeholder="Digite sua senha">
+        </div>
+        {% if request.args.get('next') %}
+          <input type="hidden" name="next" value="{{ request.args.get('next') }}">
+        {% endif %}
+        <div class="flex items-center justify-center">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" type="submit">
+            Entrar
+          </button>
+        </div>
+      </form>
+    </div>
+    <p class="text-center text-gray-500 text-xs">
+      &copy;2025 Todos os direitos reservados.
+    </p>
+  </div>
+</body>
+</html>

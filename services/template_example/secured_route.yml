@@ -1,0 +1,8 @@
+# Grupos do LDAP com acesso a rota
+allowed_groups:
+  - "Infra"
+
+# Users com acesso a rota
+allowed_users:
+  - "rafael.zelak"
+  - "teste"

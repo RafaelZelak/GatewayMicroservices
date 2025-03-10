@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  flask:
+    build: .
+    container_name: flask_gateway
+    restart: unless-stopped
+    networks:
+      - gateway_network
+    expose:
+      - "8000"
+    # Monta o diretório atual na pasta /app do container
+    volumes:
+      - ./:/app
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_gateway
+    restart: unless-stopped
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    networks:
+      - gateway_network
+    depends_on:
+      - flask
+
+networks:
+  gateway_network:
+    driver: bridge
