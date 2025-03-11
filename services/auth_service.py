@@ -2,12 +2,16 @@
 
 from ldap3 import Server, Connection, ALL, ALL_ATTRIBUTES, SUBTREE
 from decouple import config
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 class AuthService:
     @staticmethod
     def authenticate(username, password):
         try:
-            domain = config("AD_DOMAIN")
+            domain = os.environ.get("DOMAIN")
             server = Server(domain, get_info=ALL_ATTRIBUTES)
             user_dn = f'{username}@{domain}'
 

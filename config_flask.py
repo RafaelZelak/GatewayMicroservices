@@ -20,6 +20,8 @@ def create_app():
     # Importa o blueprint definido no inicio do arquivo routes.py -> webhook_bp = Blueprint('webhook_service', __name__)
     from services.webhook_example.routes import webhook_bp
 
+    # Registrar blueprint das rotas a partir daqui:
+
     # Registra as rotas dos blueprints
 
     # Exemplo rota com templates
