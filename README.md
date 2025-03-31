@@ -260,3 +260,21 @@ Com o projeto rodando, é possível acessar seu template em
 `http://gateway.localhost/template/`
 
 Ou você pode fazer uma requisição HTTP usando o Bruno
+
+## Temos a parte de Database e uma Seed para exemplo
+
+para adicionar mais seeds basta colocar o arquivo JSON na pasta:
+
+`./seed/data/*.json`
+
+E no arquivo:
+
+`./seed/migration.py`
+
+adicionar na linha:
+``` python
+    SEED_FILES = [
+        ("cnaes", "seed/data/cnaes.json"),
+        ("nova_collection", "seed/data/nova_collection.json")
+    ]
+```
