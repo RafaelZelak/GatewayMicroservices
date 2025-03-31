@@ -67,6 +67,10 @@ template_bp = Blueprint('template_service', __name__, template_folder='templates
 template_bp.secured_config_path = os.path.join(os.path.dirname(__file__), "secured_route.yml")
 ```
 
+> [!WARNING]  
+> Caso no seu .env não tiver configurado um dominio LDAP ou você não tenha um dominio LDAP
+> Ignore esta parte e pule para "Rota Default"
+
 Arquivo Secure Route:
 `secured_route.yml`
 
