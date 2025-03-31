@@ -1,0 +1,26 @@
+meta {
+  name: DropCollection
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}database/api
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 6f256feecab3174c8d3211ab2f0012f3daa390a9f8cc1d4c0a0ac4b09eb96375
+}
+
+body:json {
+  {
+      "method": "delete_collection",
+      "collection_name": "f"
+  }
+}
+
+vars:post-response {
+  token: res.body.token
+}

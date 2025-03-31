@@ -1,0 +1,26 @@
+meta {
+  name: DeleteData
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/database/api
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 6cbb26004c3f2804e6284eba789c44d9119263f9a2c6e420664f379d72fda94f
+}
+
+body:json {
+  {
+      "method": "delete_data",
+      "collection_name": "fetch_email"
+  }
+}
+
+vars:post-response {
+  token: res.body.token
+}

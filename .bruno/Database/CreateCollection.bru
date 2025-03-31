@@ -1,0 +1,22 @@
+meta {
+  name: CreateCollection
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/database/api
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "method": "create_collection",
+      "collection_name": "test_collection"
+  }
+}
+
+vars:post-response {
+  token: res.body.token
+}

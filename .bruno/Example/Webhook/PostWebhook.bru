@@ -1,0 +1,17 @@
+meta {
+  name: PostWebhook
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/webhook
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "post":"Test POST"
+  }
+}

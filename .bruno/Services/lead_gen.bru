@@ -1,0 +1,27 @@
+meta {
+  name: lead_gen
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/lead-gen/enviar
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "cnpj": "12345678000199",
+      "razao_social": "Empresa Exemplo Ltda",
+      "nome_fantasia": "Exemplo",
+      "telefones": ["(11) 98765-4321"],
+      "emails": ["contato@exemplo.com"],
+      "atividade": "Comércio varejista de produtos alimentícios",
+      "endereco": "Rua das Américas, 123 - Centro",
+      "porte": "ME",
+      "socios": ["João da Silva", "Maria Oliveira"],
+      "usuario_responsavel": "rafael.zelak",
+      "grupo_responsavel": "Acessorias"
+    }
+}

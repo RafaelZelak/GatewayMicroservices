@@ -1,0 +1,25 @@
+meta {
+  name: InsertData
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}database/api
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+      "method": "insert_data",
+      "collection_name": "test_collection",
+      "data": {
+          "test":"test_value"
+      }
+  }
+}

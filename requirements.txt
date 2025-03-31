@@ -1,0 +1,12 @@
+Flask
+bitrixUtils
+gunicorn
+dotenv
+PyYAML
+ldap3
+python-decouple
+imapclient
+python-dotenv
+pymongo
+PyJWT
+cloudscraper

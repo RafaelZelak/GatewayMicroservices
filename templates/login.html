@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - {{ service }}</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+  <div class="w-full max-w-md">
+    <div class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+      <h1 class="text-2xl font-bold text-center text-gray-800 mb-6">Login para {{ service }}</h1>
+      {% if error %}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+          <strong class="font-bold">Erro! </strong>
+          <span class="block sm:inline">{{ error }}</span>
+        </div>
+      {% endif %}
+      <form method="post" action="{{ request.path }}{% if request.args.get('next') %}?next={{ request.args.get('next') }}{% endif %}">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-semibold mb-2" for="username">Usuário</label>
+          <input class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                 type="text" name="username" id="username" placeholder="Digite seu usuário">
+        </div>
+        <div class="mb-6">
+          <label class="block text-gray-700 text-sm font-semibold mb-2" for="password">Senha</label>
+          <div class="relative">
+            <input class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 pr-10"
+                   type="password" name="password" id="password" placeholder="Digite sua senha">
+            <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600">
+              <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        {% if request.args.get('next') %}
+          <input type="hidden" name="next" value="{{ request.args.get('next') }}">
+        {% endif %}
+        <div class="flex items-center justify-center">
+          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" type="submit">
+            Entrar
+          </button>
+        </div>
+      </form>
+    </div>
+    <p class="text-center text-gray-500 text-xs">
+      &copy;2025 Todos os direitos reservados.
+    </p>
+  </div>
+
+  <script>
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    togglePassword.addEventListener('click', function () {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+
+      // Atualiza o ícone conforme o estado do campo
+      if (type === 'text') {
+        eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0110 19c-5 0-9.27-3.11-10-7 0.255-1.184 0.75-2.29 1.428-3.264M16.196 16.196A9.977 9.977 0 0119 10c0-5-4-9-9-9a9.97 9.97 0 015.714 1.428M3 3l18 18"/>';
+      } else {
+        eyeIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>';
+      }
+    });
+  </script>
+</body>
+</html>

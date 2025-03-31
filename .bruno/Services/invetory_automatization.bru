@@ -1,0 +1,18 @@
+meta {
+  name: invetory_automatization
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/inventory/api
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "user":"rafael.zelak",
+    "hostname":"ST0214"
+  }
+}

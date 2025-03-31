@@ -1,0 +1,72 @@
+services:
+  flask:
+    build: .
+    container_name: flask_gateway
+    restart: unless-stopped
+    networks:
+      - gateway_network
+    expose:
+      - "8000"
+    volumes:
+      - ./:/app
+    env_file:
+      - .env
+    environment:
+      - FLASK_APP=main.py
+      - FLASK_ENV=production
+    command: >-
+      sh -c "python3 -m seed.migration &&
+      gunicorn -w 4 -k gthread -b 0.0.0.0:8000 main:app"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_gateway
+    restart: unless-stopped
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    networks:
+      - gateway_network
+    depends_on:
+      - flask
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_gateway
+    restart: unless-stopped
+    networks:
+      - gateway_network
+    ports:
+      - "27017:27017"
+    env_file:
+      - .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_DB}
+      - MONGO_APP_USER=${MONGO_APP_USER}
+      - MONGO_APP_PASSWORD=${MONGO_APP_PASSWORD}
+    volumes:
+      - mongo_data:/data/db
+      - ./seed/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    healthcheck:
+      test: [
+        "CMD-SHELL",
+        "mongosh --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --authenticationDatabase admin --eval 'db.adminCommand(\"ping\")'"
+      ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+
+networks:
+  gateway_network:
+    driver: bridge
+
+volumes:
+  mongo_data:

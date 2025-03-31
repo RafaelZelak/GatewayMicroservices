@@ -1,0 +1,12 @@
+stages:
+  - deploy
+
+deploy_production:
+  stage: deploy
+  only:
+    - main
+  image: ubuntu:20.04
+  before_script:
+    - apt-get update -y && apt-get install -y sshpass openssh-client
+  script:
+    - sshpass -p "$DEPLOY_PASSWORD" ssh -o StrictHostKeyChecking=no deploy@192.168.15.221 "cd /home/deploy/gatewayautomacoes/ && git pull origin main && cd docker && docker-compose -f docker-compose.prod.yml up -d --build"
